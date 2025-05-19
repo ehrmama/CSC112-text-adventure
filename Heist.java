@@ -56,7 +56,7 @@ public class Heist
             input2 = input2.toUpperCase(); 
             boolean end = false; 
             if(input2.equals("BACK")||input2.equals("B")){
-            input = input.substring(0 , input.length() - 2); 
+            input = input.substring(0 , input.length() - 1); 
             }
             if(input2.equals("L")|| input2.equals("R")){
             input  = input+input2;}
