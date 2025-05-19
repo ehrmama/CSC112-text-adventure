@@ -50,24 +50,29 @@ public class Heist
     
     {
         String input = "0"; 
-        
+        boolean validInput = false; 
         while(true){
             String input2 = sc.next(); 
             input2 = input2.toUpperCase(); 
             boolean end = false; 
             if(input2.equals("BACK")||input2.equals("B")){
-            input = input.substring(0 , input.length() - 1); 
+            if(input.length()>1){
+                input = input.substring(0 , input.length() - 1);
             }
-            if(input2.equals("L")|| input2.equals("R")){
-            input  = input+input2;}
+            validInput = true; 
+            }else if(input2.equals("L")|| input2.equals("R")){
+            input  = input+input2;      
+            validInput = true; 
+            }
             else{
             System.out.println("Overcome with the weight of this decision you decide to see if harry potter has any more train stations \n hidden around here and run headfirst into a wall. You wake up in the prison infirmary"); 
             break; 
             }
+            if(validInput){
             for(int i = 0; i<rooms.length; i++){
             if(rooms[i].equals(input)){
             System.out.println(roomData[i]);
-            }
+            }}
             if(input.equals("0RRRRLL")){
                 end = true; 
         
