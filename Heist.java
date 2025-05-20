@@ -51,12 +51,17 @@ public class Heist
     
     {
         String input = ""; 
-        boolean validInput = false; // to check if the input is valid
+        boolean validInput = false;// to check if the input is valid
+        boolean gameStart = false;
         while(true){
             String input2 = sc.next(); 
             input2 = input2.toUpperCase(); 
             boolean end = false; 
-            if(input2.equals("BACK")||input2.equals("B")){
+        if (input2.equals("0")&& gameStart == false){
+            gameStart = true;
+            input = input+input2;
+            validInput = true;
+            }else if(input2.equals("BACK")||input2.equals("B")){
             if(input.length()>1){
                 input = input.substring(0 , input.length() - 1);
             }
@@ -64,12 +69,9 @@ public class Heist
             }else if(input2.equals("L")|| input2.equals("R")){
             input  = input+input2;      
             validInput = true; 
-            }else if (input2.equals("0")){
-            input = input+input2;
-            validInput = true; 
-            }
+            }else 
             
-            else{
+            {
             System.out.println("Overcome with the weight of this decision you decide to see if harry potter has any more train stations \n hidden around here and run headfirst into a wall. You wake up in the prison infirmary"); 
             break; 
             }
@@ -78,7 +80,7 @@ public class Heist
             if(rooms[i].equals(input)){
             System.out.println(roomData[i]);
             }}
-            if(input.equals("0RRRRLL")){
+            if(input.equals("0RRRRLL")|| input.equals("0RRRRR")|| input.equals("0LLRRL")||input.equals("0LLLR")||input.equals("0LLLL")||input.equals("LLR")){
                 end = true; 
         
             }
