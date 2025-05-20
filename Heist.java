@@ -51,7 +51,7 @@ public class Heist
     
     {
         String input = ""; 
-        boolean validInput = false; 
+        boolean validInput = false; // to check if the input is valid
         while(true){
             String input2 = sc.next(); 
             input2 = input2.toUpperCase(); 
