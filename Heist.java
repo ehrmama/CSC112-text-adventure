@@ -17,9 +17,10 @@ public class Heist
     public Heist()
     {
         Scanner sc = new Scanner(System.in);
-        System.out.println("You stand at the gate of the old museum with one purpose: to steal the largest diamond in the world ‘the-heart-of-my-boot'.\n You see two entrances to your left is the main entrance and to the right is the sewer entrance.");
-        String[] rooms = {"0L","0R","0LL","0LR","0RL","0RR","0RRL","0RRR","0LLL","0LLR","0LRL","0LRR","0LLLL","0LLLR","0LLRL","0LLRR","0RRRL","0RRRR","0LLRRL","0LLRRR","0RRRRL","0RRRRR","0RRRRLR","0RRRRLL"};
+        System.out.println("Controls are L, R, B or Back and Reset. Type 0 to start your adventure");
+        String[] rooms = {"0","0L","0R","0LL","0LR","0RL","0RR","0RRL","0RRR","0LLL","0LLR","0LRL","0LRR","0LLLL","0LLLR","0LLRL","0LLRR","0RRRL","0RRRR","0LLRRL","0LLRRR","0RRRRL","0RRRRR","0RRRRLR","0RRRRLL"};
         String[] roomData = {
+        "You stand at the gate of the old museum with one purpose: to steal the largest diamond in the world ‘the-heart-of-my-boot'.\n You see two entrances to your left is the main entrance and to the right is the sewer entrance.",
         "You stride confidently towards the main entrance, you have two options sneak in (R) or continue walking as bold as you are(L)",
         "You climb into the dingy sewers, the smell almost knocking you out but you persist, you see two ways, \n a long shaft to your left and a small crawl space to the right.",
         "You boldly walk through the museum entrance, the guards don’t suspect a thing to your left you see a long winding corridor, to your right is a broken ventilation shaft that you think you might be able to crawl into.",
@@ -49,7 +50,7 @@ public class Heist
     
     
     {
-        String input = "0"; 
+        String input = ""; 
         boolean validInput = false; 
         while(true){
             String input2 = sc.next(); 
@@ -63,7 +64,11 @@ public class Heist
             }else if(input2.equals("L")|| input2.equals("R")){
             input  = input+input2;      
             validInput = true; 
+            }else if (input2.equals("0")){
+            input = input+input2;
+            validInput = true; 
             }
+            
             else{
             System.out.println("Overcome with the weight of this decision you decide to see if harry potter has any more train stations \n hidden around here and run headfirst into a wall. You wake up in the prison infirmary"); 
             break; 
