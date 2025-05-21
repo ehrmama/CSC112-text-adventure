@@ -46,6 +46,8 @@ public class Heist
         "As you sprint towards the large hole in the wall that you’ve created the guards spot you. One pulls out his weapon and shoots you three times in the legs, you fall clutching your legs and are promptly arrested.",
         "You Sprint toward the sewer grate that you luckily forgot to close. close the grate above you and run like the wind, diamond under your arm.  (Slimy sewer stealer ending)."
     };
+    int [] itemID = {0,0,0,0,1,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    String [] view={};
     
     
     
