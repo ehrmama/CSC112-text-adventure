@@ -56,6 +56,8 @@ public class Heist
         boolean validInput = false;// to check if the input is valid
         boolean gameStart = false;
         while(true){
+            boolean hasSonic = false; 
+            boolean hasCutter = false; 
             String input2 = sc.next(); 
             input2 = input2.toUpperCase(); 
             boolean end = false; 
