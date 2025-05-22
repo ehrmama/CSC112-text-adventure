@@ -71,28 +71,34 @@ public class Heist
                 gameStart = true;
                 input = input+input2;
                 validInput = true;
-                }else if(input2.equals("BACK")||input2.equals("B")){
+                if(!input2.equals("0")){
+                System.out.println("please enter 0");
+                }
+                }else if(input2.equals("BACK")||input2.equals("B")&& gameStart == true){
                 if(input.length()>1){
                     input = input.substring(0 , input.length() - 1);
                 }
                 validInput = true; 
-                }else if(input2.equals("L")|| input2.equals("R")){
+                }else if(input2.equals("L") && gameStart == true|| input2.equals("R") && gameStart == true){
                 input  = input+input2;      
                 validInput = true; 
                 }else if(input2.equals("STOP")){
                 System.out.println("Thanks for playing");
                 gameRunning = false; 
-                }else if (input2.equals("RESET")){ 
+                }else if (input2.equals("RESET") && gameStart == true){ 
                     validInput = true; 
                     input = "";
                     System.out.println("You have reset, press 0 to start");
                     gameStart = false; 
                 }
                 else{
-                System.out.println("Overcome with the weight of this decision you decide to see if harry potter has any more train stations \n hidden around here and run headfirst into a wall. You wake up in the prison infirmary"); 
-                gameStart = false;
-                input = "";
+                if (gameStart == true){System.out.println("Overcome with the weight of this decision you decide to see if harry potter has any more train stations \n hidden around here and run headfirst into a wall. You wake up in the prison infirmary"); 
+                gameStart = false;}
+                else if(gameStart == false){
+                 System.out.println("this is not a valid input");  
                 }
+                }
+                
                 if(validInput){
                 for(int i = 0; i<rooms.length; i++){
                     if(rooms[i].equals(input)){
@@ -103,7 +109,7 @@ public class Heist
             
                 }
                 }
-                    }
+            }                    
     }}
 
     /**
@@ -112,9 +118,18 @@ public class Heist
      * @param  y  a sample parameter for a method
      * @return    the sum of x and y
      */
- public void reset(String input, boolean hasSonic , boolean hasCutter)
+public void endings(boolean [] endings)
     {
-        
-        
+        for(int i = 0; i<endings.length-1; i++){
+            if(endings[i] = false){
+            endings[i] = true; }
+        }}
+public boolean endings2(boolean [] endings){
+    for(int j=0; j<endings.length;j++){
+            if(!endings[j]) return false;  
+                } 
+            return true; 
+        }
     }
-}
+    
+
