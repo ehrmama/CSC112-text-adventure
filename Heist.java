@@ -55,17 +55,24 @@ public class Heist
         boolean validInput = false;// to check if the input is valid
         boolean gameStart = false;
         boolean gameRunning = true;
+        boolean end = false; 
+
         if(input.equals("")){
                 System.out.println("Controls are L, R, B or Back and Reset. Type 0 to start your adventure");
                 }
         while(gameRunning){
                 String input2 = sc.next(); 
                 input2 = input2.toUpperCase(); 
-                boolean end = false; 
-                if (end == true){
+                if(input2.equals("STOP")){
+                System.out.println("Thanks for playing");
+                gameRunning = false;
+                break; }
+                if (input2.equals("RESET")){ 
+                    validInput = true; 
                     input = "";
-                    System.out.println("You have finished the adventure and have been reset. Press 0 to start again or type 'stop' to close the game");
+                    System.out.println("You have reset, press 0 to start");
                     gameStart = false; 
+                    continue; 
                 }
                 if (input2.equals("0")&& gameStart == false&& input.equals("")){
                 gameStart = true;
@@ -78,17 +85,8 @@ public class Heist
                 validInput = true; 
                 }else if(input2.equals("L")|| input2.equals("R")){
                 input  = input+input2;      
-                validInput = true; 
-                }else if(input2.equals("STOP")){
-                System.out.println("Thanks for playing");
-                gameRunning = false; 
-                }else if (input2.equals("RESET")){ 
-                    validInput = true; 
-                    input = "";
-                    System.out.println("You have reset, press 0 to start");
-                    gameStart = false; 
-                }
-                else{
+                validInput = true;  
+                }else{
                 System.out.println("Overcome with the weight of this decision you decide to see if harry potter has any more train stations \n hidden around here and run headfirst into a wall. You wake up in the prison infirmary"); 
                 gameStart = false;
                 input = "";
@@ -101,6 +99,11 @@ public class Heist
                 if(input.equals("0RRRRLL")|| input.equals("0RRRRR")|| input.equals("0LLRRL")||input.equals("0LLLR")||input.equals("0LLLL")||input.equals("LLR")){
                     end = true; 
             
+                }
+                if (end == true){
+                    input = "";
+                    System.out.println("You have finished the adventure and have been reset. Press 0 to start again or type 'stop' to close the game");
+                    gameStart = false; 
                 }
                 }
                     }
