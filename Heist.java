@@ -47,6 +47,7 @@ public class Heist
     };
     int [] itemID = {0,0,0,0,1,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     String [] view={};
+    String [] endingsID = {"0RRRRLL","0RRRRR","0LLRRL","0LLLR","0LLLL","0LRR"};
     boolean [] endings  = {false,false,false,false,false,false}; 
     
     
@@ -62,11 +63,6 @@ public class Heist
                 String input2 = sc.next(); 
                 input2 = input2.toUpperCase(); 
                 boolean end = false; 
-                if (end == true){
-                    input = "";
-                    System.out.println("You have finished the adventure and have been reset. Press 0 to start again or type 'stop' to close the game");
-                    gameStart = false; 
-                }
                 if (input2.equals("0")&& gameStart == false&& input.equals("")){
                 gameStart = true;
                 input = input+input2;
@@ -74,7 +70,7 @@ public class Heist
                 if(!input2.equals("0")){
                 System.out.println("please enter 0");
                 }
-                }else if(input2.equals("BACK")||input2.equals("B")&& gameStart == true){
+                }else if((input2.equals("BACK")||input2.equals("B"))&& gameStart == true){
                 if(input.length()>1){
                     input = input.substring(0 , input.length() - 1);
                 }
@@ -104,13 +100,26 @@ public class Heist
                     if(rooms[i].equals(input)){
                         System.out.println(roomData[i]);
                 }}
-                if(input.equals("0RRRRLL")|| input.equals("0RRRRR")|| input.equals("0LLRRL")||input.equals("0LLLR")||input.equals("0LLLL")||input.equals("LLR")){
-                    end = true; 
-            
+                for(int j = 0; j<endings.length; j++){
+                if(endingsID[j].equals(input)){
+                endings[j] = true; 
+                end = true;
+                }}
+                 if (end){
+                    input = "";
+                    System.out.println("You have finished the adventure and have been reset. Press 0 to start again or type 'stop' to close the game");
+                    gameStart = false; 
+                }
+                if(endings2(endings)){
+                System.out.println("Congratulations, you are the master thief");
+                for(int x = 0; x<endings.length; x++){
+                endings[x] = false; 
+                }
+                } 
                 }
                 }
             }                    
-    }}
+    }
 
     /**
      * An example of a method - replace this comment with your own
@@ -118,12 +127,6 @@ public class Heist
      * @param  y  a sample parameter for a method
      * @return    the sum of x and y
      */
-public void endings(boolean [] endings)
-    {
-        for(int i = 0; i<endings.length-1; i++){
-            if(endings[i] = false){
-            endings[i] = true; }
-        }}
 public boolean endings2(boolean [] endings){
     for(int j=0; j<endings.length;j++){
             if(!endings[j]) return false;  
