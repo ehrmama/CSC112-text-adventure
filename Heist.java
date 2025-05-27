@@ -35,7 +35,7 @@ public class Heist
         "You walk into the room labeled staff only, in it you find a guards uniform that you decide to put on, as you finish putting on the uniform another guard walks into the room and says ‘you must be the new guy let me show you the ropes’ (Double agent ending )",
         "You enter the Rare Minerals exhibit and find yourself staring at a block of uraninite for far to long in that moment you realise that you are extremely susceptible to radiation poisoning and stumble run out of the museum to the nearest hospital as fast as you can ( I tried so hard and got so far but in the end it didn’t even matter ending)",
         "You take a left thinking that going left has never let you down before, as you are thinking that the vent collapses, dropping you right into the middle of a crowded guards room who instantly arrest you.",
-        "You take a right sticking to your pattern you take a right and before you know it you end up in the middle of the diamond room, now you sit directly above the floating case that holds the diamond, you think that (ITEM)  will help you so you decide to use it (R ), otherwise you think you might be able to climb down and open the case that way (L).",    
+        "You take a right sticking to your pattern you take a right and before you know it you end up in the middle of the diamond room, now you sit directly above the floating case that holds the diamond since you don't have an item that will help you otherwise you think you might be able to climb down and open the case that way (L).",    
         "As you ascend the flimsy rope you brought to the diamond you think that you might not reach it. As you think that you reach the top. Relieved, you haul up your rope and attempt to open the case. At that moment an alarm goes off, guards run into the room and turrets descend from the ceiling. You get arrested.",
         "You use the sonic blaster, unbeknownst to you, you had it facing round the wrong way, the guard standing behind you gets evaporated and a large exit hole is created you  could leave now (R ) or you can attempt to open the diamond case another way.",
         "You use the glass cutter extremely effectively, plucking the diamond out of the case and sneaking away through the ventilation shaft. (Henry Stickman Robbery ending )",
@@ -56,6 +56,8 @@ public class Heist
         boolean validInput = false;// to check if the input is valid
         boolean gameStart = false;
         boolean gameRunning = true;
+        boolean hasCutter = false; 
+        boolean hasBlaster = false; 
         if(input.equals("")){
                 System.out.println("Controls are L, R, B or Back and Reset. Type 0 to start your adventure");
                 }
@@ -66,50 +68,67 @@ public class Heist
                 if (input2.equals("0")&& gameStart == false&& input.equals("")){
                 gameStart = true;
                 input = input+input2;
-                validInput = true;
-                if(!input2.equals("0")){
-                System.out.println("please enter 0");
-                }
-                }else if((input2.equals("BACK")||input2.equals("B"))&& gameStart == true){
-                if(input.length()>1){
-                    input = input.substring(0 , input.length() - 1);
-                }
-                validInput = true; 
-                }else if(input2.equals("L") && gameStart == true|| input2.equals("R") && gameStart == true){
-                input  = input+input2;      
-                validInput = true; 
-                }else if(input2.equals("STOP")){
+                validInput = true;}
+                if(input2.equals("STOP")){
                 System.out.println("Thanks for playing");
-                gameRunning = false; 
-                }else if (input2.equals("RESET") && gameStart == true){ 
+                gameRunning = false;}  
+                
+                if(!gameStart && !input2.equals("0")){
+                System.out.println("Please enter 0 to start the game");
+                }
+                
+                if (input2.equals("RESET") && gameStart == true){ 
                     validInput = true; 
                     input = "";
                     System.out.println("You have reset, press 0 to start");
                     gameStart = false; 
                 }
-                else{
-                if (gameStart == true){System.out.println("Overcome with the weight of this decision you decide to see if harry potter has any more train stations \n hidden around here and run headfirst into a wall. You wake up in the prison infirmary"); 
-                gameStart = false;}
-                else if(gameStart == false){
-                 System.out.println("this is not a valid input");  
-                }
-                }
                 
+                if(input.equals("0LLL")&&(input2.equals("GRAB")||input2.equals("G"))){
+                hasCutter = true;
+                System.out.println("You     have obtained the glass cutter");
+                roomData[16] = "You take a right sticking to your pattern you take a right and before you know it you end up in the middle of the diamond room, now you sit directly above the floating case that holds the diamond, you think that the glass cutter you found will help you so you decide to use it (R ), otherwise you think you might be able to climb down and open the case that way (L).";   
+                validInput = true; 
+                }  
+                if((input2.equals("BACK")||input2.equals("B"))&& gameStart == true){
+                    if(input.length()>1){
+                    input = input.substring(0 , input.length() - 1);
+                    validInput = true; }else{
+                    System.out.println("You can't go back any further");
+                }
+                validInput = true; 
+                }else if(gameStart == true && (input2.equals("R")||input2.equals("L"))){
+                input  = input+input2;      
+                validInput = true; 
+                } 
+                if(gameStart == false){
+                 System.out.println("this is not a valid input");  
+                
+                
+            }
                 if(validInput){
+                    boolean inRoom = false; 
                 for(int i = 0; i<rooms.length; i++){
                     if(rooms[i].equals(input)){
                         System.out.println(roomData[i]);
-                }}
-                for(int j = 0; j<endings.length; j++){
+                        inRoom = true;
+                        break; 
+                }
+                    
+            }
+            if(!inRoom){
+            System.out.println("You don't quite know where you are");
+            }
+            for(int j = 0; j<endings.length; j++){
                 if(endingsID[j].equals(input)){
                 endings[j] = true; 
                 end = true;
-                }}
+                }}}
                  if (end){
                     input = "";
                     System.out.println("You have finished the adventure and have been reset. Press 0 to start again or type 'stop' to close the game");
                     gameStart = false; 
-                }
+                }}
                 if(endings2(endings)){
                 System.out.println("Congratulations, you are the master thief");
                 for(int x = 0; x<endings.length; x++){
@@ -118,16 +137,15 @@ public class Heist
                 } 
                 }
                 }
-            }                    
-    }
-
+                                        
+        
     /**
      * An example of a method - replace this comment with your own
      *
      * @param  y  a sample parameter for a method
      * @return    the sum of x and y
      */
-public boolean endings2(boolean [] endings){
+    public boolean endings2(boolean [] endings){
     for(int j=0; j<endings.length;j++){
             if(!endings[j]) return false;  
                 } 
