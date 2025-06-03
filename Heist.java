@@ -45,11 +45,19 @@ public class Heist
         "As you sprint towards the large hole in the wall that you’ve created the guards spot you. One pulls out his weapon and shoots you three times in the legs, you fall clutching your legs and are promptly arrested.",
         "You Sprint toward the sewer grate that you luckily forgot to close. close the grate above you and run like the wind, diamond under your arm.  (Slimy sewer stealer ending)."
     };
-    String [] viewID={};
+    String[] view =  {"0", "0R", "0L","0RR", "0LL", "0LR", "0RRR", "0LLL", "0RRRR","0RRRRL"};
+    String [] viewID={"You see a nice ornate building towering in front of you. To your left you see a very \n grandiose entrance with pillars and everything, to your right you see a very dirty looking sewer \n entrance that you can smell from where you're standing."
+    ,"You are standing in a very dirty and smelly sewer. to your left you see an incredibly deep shaft for transferring waste water from the surface sewer to a deeper part of the sewer you can’t even make out the bottom, to your right is a very small shaft maybe a little wider than your torso looking ahead there is a huge river of waste that is wide enough you are sure you cannot cross it without getting caught in the current. "
+    , "Now that you’re a little closer to the entrance you see 2 guards standing at the entrance not really paying attention through the door you see a security counter with a slumbering guard in the chair. "
+    , "The room buzzes with the sound of a generator. To your left, the machine hums loudly. To your right, light leaks from a heavy door to the diamond room. Resting on a nearby shelf is a sleek, glowing weapon — a sonic blaster."
+    ,"The guard sitting behind the front desk is still asleep and nobody seems to suspect you due /n  to your boldness, to your left is a hallway , to your right a broken ventilation shaft sits. "
+    , "You’re hidden under a cluttered desk. Papers, keys, and an empty coffee cup litter the /n surface. To the left is a hallway; to the right, a broken vent beckons."
+    , "You stand under a huge floating ornate glass cabinet that holds the huge diamond /n  you've been looking for, above it you see a mess of cables holding it up."
+    ,"You see two doors in front of you one is labeled rare minerals exhibit whereas the other \n is labeled ‘Staff Only’. You notice to your left is a shiny tool sitting on the ground that you might \n be able to use." 
+    ,"There is now  a huge smoldering exit hole with some red mist floating around."
+    ,"There's a huge hole and a door. You don’t see much since adrenalin."};
     String [] endingsID = {"0RRRRLL","0RRRRR","0LLRRL","0LLLR","0LLLL","0LRR"};
     boolean [] endings  = {false,false,false,false,false,false}; 
-    
-    
     {
         String input = ""; 
         boolean validInput = false;// to check if the input is valid
@@ -57,6 +65,7 @@ public class Heist
         boolean gameRunning = true;
         boolean hasCutter = false; 
         boolean hasBlaster = false; 
+        boolean look = false; 
     if(input.equals("")){
                 System.out.println("Controls are L, R, B or Back and Reset. Type 0 to start your adventure");
     }
@@ -71,7 +80,8 @@ public class Heist
         
         if(input2.equals("STOP")){
         System.out.println("Thanks for playing");
-        gameRunning = false;}  
+        gameRunning = false;
+        break; }
                 
         if(!gameStart && !input2.equals("0")){
             System.out.println("Please enter 0 to start the game");
@@ -83,19 +93,37 @@ public class Heist
             System.out.println("You have reset, press 0 to start");
             gameStart = false; 
             }  
-            
-        if(input.equals("0LLL")&&(input2.equals("GRAB")||input2.equals("G"))){
+            boolean foundView =false;
+        if(input2.equals("VIEW")||input2.equals("V")){
+            validInput = true;  
+        for(int y  = 0; y < view.length; y++){
+          if(input.equals(view[y])){
+            System.out.println(viewID[y]);
+            foundView = true; 
+            look = true; 
+        }
+        }
+        } else if(foundView = false){
+        System.out.println("You can't see anything");
+        } 
+        if(input2.equals("GRAB")||input2.equals("G")){
+            if(!look){
+        System.out.println("You haven't looked around");}
+        else{
+            if(input.equals("0LLL")){
             hasCutter = true;
-            System.out.println("You have obtained the glass cutter");
-            roomData[16] = "You take a right sticking to your pattern you take a right and before you know it you end up in the middle of the diamond room, now you sit directly above the floating case that holds the diamond, you think that the glass cutter you found will help you so you decide to use it (L), otherwise you think you might be able to climb down and open the case that way (R).";   
-            validInput = true; 
+                System.out.println("You have obtained the glass cutter");
+                roomData[16] = "You take a right sticking to your pattern you take a right and before you know it you end up in the middle of the diamond room, now you sit directly above the floating case that holds the diamond, you think that the glass cutter you found will help you so you decide to use it (L), otherwise you think you might be able to climb down and open the case that way (R).";   
+                validInput = true; }
+            else if(input.equals("0RR")){
+                hasBlaster = true; 
+                System.out.println("You have obtained the sonic blaster");
+                roomData[8] = "You sneak into the hallway and to your luck no guards are around and find yourself \n standing underneath a huge glass box suspended in the air holding the precious diamond, now \n you have two options, Use item the sonic blaster to blast open the case or see if you can scale up to the diamond and \n climb into the box.";
+                validInput = true; 
+        } else {
+        System.out.println("There's nothing to gab here"); 
         }
-        if(input.equals("0LR")&&(input2.equals("GRAB")||input2.equals("G"))){
-        hasBlaster = true; 
-        System.out.println("You have obtained the sonic blaster");
-        roomData[8] = "You sneak into the hallway and to your luck no guards are around and find yourself \n standing underneath a huge glass box suspended in the air holding the precious diamond, now \n you have two options, Use item the sonic blaster to blast open the case or see if you can scale up to the diamond and \n climb into the box.";
-        validInput = true; 
-        }
+        }}
         if((input2.equals("BACK")||input2.equals("B"))&& gameStart == true){
             if(input.length()>1){
             input = input.substring(0 , input.length() - 1);
@@ -114,12 +142,13 @@ public class Heist
         continue; 
         }
         else if(gameStart == true && (input2.equals("R")||input2.equals("L"))){
+            look = false; 
             input  = input+input2;      
             validInput = true; 
             } 
             
         if(gameStart == false){
-            System.out.println("this is not a valid input");  
+            System.out.println("this is not a valid input please input 0 to start");  
             }
             
         if(validInput){
@@ -154,7 +183,7 @@ public class Heist
                 } 
                 }
                 }
-                                        
+                                    
         
     /**
      * This method checks if all endings have been triggered 
