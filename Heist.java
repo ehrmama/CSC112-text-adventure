@@ -4,13 +4,10 @@ import java.util.*;
  * Write a description of class test here.
  *
  * @author Marlon Ehrmann
- * @version 18/05/25
+ * @version 05/06/2025
  */
 public class Heist
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
     /**
      * Constructor for objects of class test
      */
@@ -70,15 +67,19 @@ public class Heist
         boolean look = false; // to see if the player has looked around before picking up an item 
         String input = ""; // Stores room path, is used in L and R input and printing out room data. 
     while(gameRunning){
-        String input2 = sc.next(); 
-        input2 = input2.toUpperCase(); 
-        boolean end = false;
-        if(input2.equals("STOP")){
+        String input2 = sc.next(); //Scanner
+        input2 = input2.toUpperCase(); //Sets all inputs to uppercase for simplicity and to get path
+        boolean end = false; // ending boolean
+        if(input2.equals("STOP")){  // This if statement ends the game
         System.out.println("Thanks for playing");
         gameRunning = false;
         break;}  
-        if(!gameStart){
-        if (input2.equals("0")&& !gameStart){
+        if(!gameStart){// Resets when game stops and/or is reset. 
+        hasBlaster = false; 
+        hasCutter = false;
+        roomData[16] = "You take a right sticking to your pattern you take a right and before you know it you end up in \n the middle of the diamond room, now you sit directly above the floating case that holds \n the diamond since you don't have an item that will help you otherwise you think you might \n be able to climb down and open the case that way (L).";  
+        roomData[8] = "You sneak into the hallway and to your luck no guards are around and find yourself \n standing underneath a huge glass box suspended in the air holding the precious diamond, \n since you don't seem to have an item to help you your only option is to see if you can scale up to the diamond and \n climb into the box.";  
+        if (input2.equals("0")&& !gameStart){ // This makes sure that the game can't do anything without the first input "0"
         input = input+input2;
         validInput = true;
         gameStart = true; 
@@ -88,15 +89,15 @@ public class Heist
         System.out.println("This is not a valid input, please enter 0 to start the game");
         continue;
         }}
-        if (input2.equals("RESET") && gameStart == true){ 
+        if (input2.equals("RESET") && gameStart == true){ // This If statement allows the player to reset to the start 
             validInput = true; 
             input = "";
             System.out.println("You have reset, press 0 to start");
-            roomData[16] = "You take a right sticking to your pattern you take a right and before you know it you end up in \n the middle of the diamond room, now you sit directly above the floating case that holds \n the diamond since you don't have an item that will help you otherwise you think you might \n be able to climb down and open the case that way (L).";  
-            roomData[8] = "You sneak into the hallway and to your luck no guards are around and find yourself \n standing underneath a huge glass box suspended in the air holding the precious diamond, \n since you don't seem to have an item to help you your only option is to see if you can scale up to the diamond and \n climb into the box.";
-            gameStart = false; 
+            gameStart = false;
+            hasCutter = false; 
+            hasBlaster = false; 
             }  
-    if(input2.equals("VIEW")||input2.equals("V")){
+    if(input2.equals("VIEW")||input2.equals("V")){ // These if statements and for loop allow the player to "look" around 
         validInput = true;  
         for(int y  = 0; y < view.length; y++){
           if(input.equals(view[y])){
@@ -104,10 +105,10 @@ public class Heist
             look = true; 
             }
         }
-    } else if ((input2.equals("VIEW")||input2.equals("V")) && !look){
+    } else if ((input2.equals("VIEW")||input2.equals("V")) && !look){// This in in the case that there is no ablilty to look around. 
         System.out.println("You can't see anything");
     } 
-    if(input2.equals("GRAB")||input2.equals("G")){
+    if(input2.equals("GRAB")||input2.equals("G")){ // These loops change the text when the player picks up an item 
             if(!look){
         System.out.println("You haven't looked around");}
     else{
@@ -125,7 +126,7 @@ public class Heist
         System.out.println("There's nothing to grab here"); 
         }
     }}
-    if((input2.equals("BACK")||input2.equals("B"))&& gameStart == true){
+    if((input2.equals("BACK")||input2.equals("B"))&& gameStart == true){ // This code allows the player to backtrack which is required for certain endings
             if(input.length()>1){
             input = input.substring(0 , input.length() - 1);
             validInput = true; }else{
@@ -133,7 +134,7 @@ public class Heist
             }
             validInput = true; 
     }
-    if(input.equals("0RRR") && !hasBlaster && input2.equals("R")){
+    if(input.equals("0RRR") && !hasBlaster && input2.equals("R")){ // Stops the player from being able to use items they haven't obtained
         validInput = false; 
         System.out.println("What on earth are you doing");
         continue; 
@@ -142,12 +143,12 @@ public class Heist
         System.out.println("You have no item that will help you");
         continue; 
         }
-        else if(gameStart&& (input2.equals("R")||input2.equals("L"))){
+        else if(gameStart&& (input2.equals("R")||input2.equals("L"))){ // Basic room navigation code
             look = false; 
             input  = input+input2;      
             validInput = true; 
             } 
-    if(validInput){
+    if(validInput){ // This for loop prints out the text associated with the room your in. 
         boolean inRoom = false; 
         for(int i = 0; i<rooms.length; i++){
                 if(rooms[i].equals(input)){
@@ -159,18 +160,18 @@ public class Heist
         if(!inRoom && !gameRunning){
             System.out.println("You don't quite know where you are");
             }} 
-    for(int j = 0; j<endings.length; j++){
+    for(int j = 0; j<endings.length; j++){ //  This code checks if you've achieved an ending
         if(endingsID[j].equals(input)){
                 endings[j] = true; 
                 end = true;
                 }
             }
-    if (end){
+    if (end){ // this prints out the ending message and resets after an ending has been completed
         input = "";
         System.out.println("You have finished the adventure and have been reset. Press 0 to start again or type 'stop' to close the game");
         gameStart = false; 
                 }
-    if(endings2(endings)){
+    if(endings2(endings)){ // This checks if all endings have been completed. 
         System.out.println("Congratulations, you are the master thief");
         for(int x = 0; x<endings.length; x++){
             endings[x] = false; 
@@ -184,7 +185,7 @@ public class Heist
     /**
      * This method checks if all endings have been triggered 
      *
-     * @param  y  a sample parameter for a method
+     * @param  y  boolean[] = {false,false,true,false}
      * @return    true or false 
      */
     public boolean endings2(boolean [] endings){
