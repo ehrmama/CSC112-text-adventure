@@ -17,6 +17,7 @@ public class Heist
     public Heist()
     {
         Scanner sc = new Scanner(System.in);
+        // Below are a collection of arrays that contain data for the text adventure, The first is the room path, The second is the text that pertains/describes each room. 
         String[] rooms = {"0","0L","0R","0LL","0LR","0RL","0RR","0RRL","0RRR","0LLL","0LLR","0LRL","0LRR","0LLLL","0LLLR","0LLRL","0LLRR","0RRRL","0RRRR","0LLRRL","0LLRRR","0RRRRL","0RRRRR","0RRRRLR","0RRRRLL"};
         String[] roomData = {
         "You stand at the gate of the old museum with one purpose: to steal the largest diamond in the world ‘the-heart-of-my-boot'.\n You see two entrances to your left is the main entrance and to the right is the sewer entrance.",
@@ -45,6 +46,7 @@ public class Heist
         "As you sprint towards the large hole in the wall that you’ve created the guards spot you. One pulls \n out his weapon and shoots you three times in the legs, you fall clutching your \n legs and are promptly arrested. \n Type 'B' to go back a step or type 'Reset' to restart",
         "You Sprint toward the sewer grate that you luckily forgot to close. close the grate above you and \n run like the wind, diamond under your arm.  (Slimy sewer stealer ending)."
     };
+    // Here are some more arrays, The first is the rooms that have a "view/look" associated with them, The second is the data/text connected with each room.  
     String[] view =  {"0", "0R", "0L","0RR", "0LL", "0LR", "0RRR", "0LLL", "0RRRR","0RRRRL"};
     String [] viewID={"You see a nice ornate building towering in front of you. To your left you see a very \n grandiose entrance with pillars and everything, to your right you see a very dirty \n looking sewer \n entrance that you can smell from where you're standing."
     ,"You are standing in a very dirty and smelly sewer. to your left you see an incredibly deep shaft for \n transferring waste water from the surface sewer to a deeper part of the sewer you can’t \n even make out the bottom, to your right is a very small shaft maybe a little wider \n than your torso looking ahead there is a huge river of waste that is wide enough you are sure you cannot \n  cross it without getting caught in the current. "
@@ -56,17 +58,17 @@ public class Heist
     ,"You see two doors in front of you one is labeled rare minerals exhibit whereas the other \n is labeled ‘Staff Only’. You notice to your left is a shiny tool sitting on the ground that you might \n be able to use." 
     ,"There is now  a huge smoldering exit hole with some red mist floating around."
     ,"There's a huge hole and a door. You don’t see much since adrenalin."};
+    // The string array below this is the path/roomID of each ending and the boolean array is a dataset of the endings the player has completed
     String [] endingsID = {"0RRRRLL","0RRRRR","0LLRRL","0LLLR","0LLLL","0LRR"};
     boolean [] endings  = {false,false,false,false,false,false}; 
     System.out.println("Controls are L, R, B or Back, V or View, G or Grab and Reset. Type 0 to start your adventure");
-        boolean validInput = false;// to check if the input is valid
-        boolean gameStart = false;
-        boolean gameRunning = true;
-        boolean hasCutter = false; 
-        boolean hasBlaster = false; 
-        boolean look = false; 
-        boolean foundView = false;
-        String input = "";
+        boolean validInput = false; // is used after every input to see if the input is valid (Duh)
+        boolean gameStart = false; // is used in reset and the game start to not allow inputs after an ending or the start of the game. 
+        boolean gameRunning = true; // is used in stop to end the while loop and close the game
+        boolean hasCutter = false; // checks if the player has the cutter item
+        boolean hasBlaster = false; // checks if player has the sonic blaster item
+        boolean look = false; // to see if the player has looked around before picking up an item 
+        String input = ""; // Stores room path, is used in L and R input and printing out room data. 
     while(gameRunning){
         String input2 = sc.next(); 
         input2 = input2.toUpperCase(); 
@@ -86,13 +88,12 @@ public class Heist
         System.out.println("This is not a valid input, please enter 0 to start the game");
         continue;
         }}
-        /*if(!gameStart){
-            System.out.println("Please enter 0 to start the game");
-        }*/
         if (input2.equals("RESET") && gameStart == true){ 
             validInput = true; 
             input = "";
             System.out.println("You have reset, press 0 to start");
+            roomData[16] = "You take a right sticking to your pattern you take a right and before you know it you end up in \n the middle of the diamond room, now you sit directly above the floating case that holds \n the diamond since you don't have an item that will help you otherwise you think you might \n be able to climb down and open the case that way (L).";  
+            roomData[8] = "You sneak into the hallway and to your luck no guards are around and find yourself \n standing underneath a huge glass box suspended in the air holding the precious diamond, \n since you don't seem to have an item to help you your only option is to see if you can scale up to the diamond and \n climb into the box.";
             gameStart = false; 
             }  
     if(input2.equals("VIEW")||input2.equals("V")){
@@ -100,11 +101,10 @@ public class Heist
         for(int y  = 0; y < view.length; y++){
           if(input.equals(view[y])){
             System.out.println(viewID[y] + "\n" );
-            foundView = true; 
             look = true; 
             }
         }
-    } else if ((input2.equals("VIEW")||input2.equals("V")) && foundView == false){
+    } else if ((input2.equals("VIEW")||input2.equals("V")) && !look){
         System.out.println("You can't see anything");
     } 
     if(input2.equals("GRAB")||input2.equals("G")){
