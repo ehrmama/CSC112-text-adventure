@@ -1,10 +1,10 @@
 #BlueJ class context
 comment0.target=Heist
-comment0.text=\n\ Write\ a\ description\ of\ class\ test\ here.\n\n\ @author\ Marlon\ Ehrmann\n\ @version\ 18/05/25\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ test\ here.\r\n\r\n\ @author\ Marlon\ Ehrmann\r\n\ @version\ 18/05/25\r\n
 comment1.params=
 comment1.target=Heist()
-comment1.text=\n\ Constructor\ for\ objects\ of\ class\ test\n
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ test\r\n
 comment2.params=endings
 comment2.target=boolean\ endings2(boolean[])
-comment2.text=\n\ This\ method\ checks\ if\ all\ endings\ have\ been\ triggered\ \n\n\ @param\ \ y\ \ a\ sample\ parameter\ for\ a\ method\n\ @return\ \ \ \ true\ or\ false\ \n
+comment2.text=\r\n\ This\ method\ checks\ if\ all\ endings\ have\ been\ triggered\ \r\n\r\n\ @param\ \ y\ \ a\ sample\ parameter\ for\ a\ method\r\n\ @return\ \ \ \ true\ or\ false\ \r\n
 numComments=3
